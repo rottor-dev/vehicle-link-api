@@ -13,6 +13,16 @@ public final class TbtSnapshot implements Parcelable {
     public final int maneuverIconType;
     public final int distanceMeters;
     public final int remainingSeconds;
+    /** ICC maneuver index (0-based). */
+    public final int maneuverIndex;
+    public final int totalManeuvers;
+    /** ICC {@code GuidingStep} enum wire value. */
+    public final int guidingStepWire;
+    public final int nearDistanceMeters;
+    public final int distanceToDestinationMeters;
+    public final String nextRoadLabel;
+    public final String exitNumber;
+    public final String exitText;
 
     public TbtSnapshot(
             long timestampMs,
@@ -21,14 +31,30 @@ public final class TbtSnapshot implements Parcelable {
             String etaText,
             int maneuverIconType,
             int distanceMeters,
-            int remainingSeconds) {
+            int remainingSeconds,
+            int maneuverIndex,
+            int totalManeuvers,
+            int guidingStepWire,
+            int nearDistanceMeters,
+            int distanceToDestinationMeters,
+            String nextRoadLabel,
+            String exitNumber,
+            String exitText) {
         this.timestampMs = timestampMs;
-        this.maneuverText = maneuverText;
-        this.distanceText = distanceText;
-        this.etaText = etaText;
+        this.maneuverText = maneuverText != null ? maneuverText : "";
+        this.distanceText = distanceText != null ? distanceText : "";
+        this.etaText = etaText != null ? etaText : "";
         this.maneuverIconType = maneuverIconType;
         this.distanceMeters = distanceMeters;
         this.remainingSeconds = remainingSeconds;
+        this.maneuverIndex = maneuverIndex;
+        this.totalManeuvers = totalManeuvers;
+        this.guidingStepWire = guidingStepWire;
+        this.nearDistanceMeters = nearDistanceMeters;
+        this.distanceToDestinationMeters = distanceToDestinationMeters;
+        this.nextRoadLabel = nextRoadLabel != null ? nextRoadLabel : "";
+        this.exitNumber = exitNumber != null ? exitNumber : "";
+        this.exitText = exitText != null ? exitText : "";
     }
 
     protected TbtSnapshot(Parcel in) {
@@ -39,6 +65,14 @@ public final class TbtSnapshot implements Parcelable {
         maneuverIconType = in.readInt();
         distanceMeters = in.readInt();
         remainingSeconds = in.readInt();
+        maneuverIndex = in.readInt();
+        totalManeuvers = in.readInt();
+        guidingStepWire = in.readInt();
+        nearDistanceMeters = in.readInt();
+        distanceToDestinationMeters = in.readInt();
+        nextRoadLabel = in.readString();
+        exitNumber = in.readString();
+        exitText = in.readString();
     }
 
     @Override
@@ -50,6 +84,14 @@ public final class TbtSnapshot implements Parcelable {
         dest.writeInt(maneuverIconType);
         dest.writeInt(distanceMeters);
         dest.writeInt(remainingSeconds);
+        dest.writeInt(maneuverIndex);
+        dest.writeInt(totalManeuvers);
+        dest.writeInt(guidingStepWire);
+        dest.writeInt(nearDistanceMeters);
+        dest.writeInt(distanceToDestinationMeters);
+        dest.writeString(nextRoadLabel);
+        dest.writeString(exitNumber);
+        dest.writeString(exitText);
     }
 
     @Override
