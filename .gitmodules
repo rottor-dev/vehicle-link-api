@@ -1,0 +1,3 @@
+[submodule "rrt-proto"]
+	path = rrt-proto
+	url = git@github.com:rottor-dev/rrt-proto.git
